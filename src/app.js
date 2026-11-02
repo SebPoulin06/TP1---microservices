@@ -1,11 +1,20 @@
 import express from "express";
-import { exemple } from "./modele.js";
+import staffRoutes from "./routes/staffRoutes.js";
+import tableRoutes from "./routes/tableRoutes.js";
+import menuRoutes from "./routes/menuRoutes.js";
+
 
 export const app = express();
 
 app.use(express.json());
 
-app.get("/exemple", async (req, res) => {
-    const exemples = await exemple.lister();
-    res.json(exemples);
-})
+//routes staff
+app.use("/staff", staffRoutes);
+
+
+//routes tables
+app.use("/tables", tableRoutes);
+
+
+//routes menu
+app.use("/menu", menuRoutes);
