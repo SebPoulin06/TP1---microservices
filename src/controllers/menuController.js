@@ -6,11 +6,7 @@ export async function listerMenu(req, res) {
     const categoriesValides = ["starter", "main", "dessert", "drink"]
     
     if (category !== undefined && !categoriesValides.includes(category)){
-<<<<<<< HEAD
-        return res.status(400).json({error: {message: "Catégorie invalide."}})
-=======
         throw new HttpError(400, "Catégorie invalide.");
->>>>>>> origin/master
     }
 
     const items = await menuModele.lister();
@@ -22,11 +18,7 @@ export async function trouverItem(req, res) {
     const item = await menuModele.trouverParId(id);
 
     if (!item) {
-<<<<<<< HEAD
-        return res.status(404).json({error: {message:"Item du menu introuvable."}});
-=======
         throw new HttpError(404, "Item du menu introuvable.");
->>>>>>> origin/master
     }
 
     return res.status(200).json(item);

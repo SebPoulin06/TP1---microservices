@@ -5,11 +5,7 @@ export async function listerTables (req, res) {
     const tables = await tableModele.lister();
 
     if (status !== undefined && !["free", "occupied"].includes(status)) {
-<<<<<<< HEAD
-        return res.status(400).json({error:{message: "Le statut doit être free ou occupied"}});
-=======
         throw new HttpError(400, "Le statut doit être free ou occupied.");
->>>>>>> origin/master
     }
 
     res.status(200).json(tables);
@@ -19,13 +15,7 @@ export async function trouverTable (req ,res) {
     const table = await tableModele.trouverParId(req.params.id);
 
     if (!table) {
-<<<<<<< HEAD
-        return res.status(404).json({
-            error:{code:"NOT_FOUND", message: "Table introuvable"}
-        })
-=======
         throw new HttpError(404, "Table introuvable.");
->>>>>>> origin/master
     }
 
     res.status(200).json(table);
@@ -35,11 +25,7 @@ export async function creerTable (req, res) {
     const { number, seats } = req.body;
 
     if (!Number.isInteger(number) || number <= 0 || !Number.isInteger(seats) || seats < 1 || seats > 12) {
-<<<<<<< HEAD
-        return res.status(400).json({error: {message: "Le numéro doit être un entier positif et le nombre de places doit être entre 1 et 12."}})
-=======
         throw new HttpError(400, "Le numéro doit être un entier positif et le nombre de places doit être entre 1 et 12.");
->>>>>>> origin/master
     }
 
     const nouvelleTable = await tableModele.creer(number, seats);
