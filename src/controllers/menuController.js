@@ -37,21 +37,6 @@ export async function creerItem(req, res) {
     const categoriesValides = ["starter", "main", "dessert", "drink"]
 
     if (typeof name !== "string" || name.trim() === "") {
-<<<<<<< HEAD
-        return res.status(400).json({error: {message: "Le nom est obligatoire."}})
-    }
-
-    if (!categoriesValides.includes(category)) {
-        return res.status(400).json({error: {message:"Catégorie invalide."}});
-    }
-
-    if(!Number.isInteger(priceCents) || priceCents <= 0) {
-        return res.status(400).json({error:{message: "Le prix doit être un entier positif"}});
-    }
-
-    if (typeof available !== "boolean") {
-        return res.status(400).json({error:{message:"La disponibilité doit être true ou false."}});
-=======
         throw new HttpError(400, "Le nom est obligatoire.");
     }
 
@@ -65,7 +50,6 @@ export async function creerItem(req, res) {
 
     if (typeof available !== "boolean") {
         throw new HttpError(400, "La disponibilité doit être true ou false.");
->>>>>>> origin/master
     }
 
     const nouvelItem = await menuModele.creer(name.trim(), category, priceCents, available)
@@ -77,32 +61,13 @@ export async function modiferItem(req, res) {
     const item = await menuModele.trouverParId(id)
 
     if(!item) {
-<<<<<<< HEAD
-        return res.status(404).json({error: {message:"Item du menu introuvable."}});
-=======
         throw new HttpError(404, "Item du menu introuvable.");
->>>>>>> origin/master
     }
 
     const { name, category, priceCents, available } = req.body;
     const categoriesValides = ["starter", "main", "dessert", "drink"];
 
     if (typeof name !== "string" || name.trim() === "") {
-<<<<<<< HEAD
-        return res.status(400).json({error:{message:"Le nom est obligatoire."}});
-    }
-
-    if (!categoriesValides.includes(category)) {
-        return res.status(400).json({error:{messaage:"Catégorie invalide."}});
-    }
-
-    if (!Number.isInteger(priceCents) || priceCents <= 0) {
-        return res.status(400).json({error:{message:"Le prix doit être un entier positif."}});
-    }
-
-    if (typeof available !== "boolean") {
-        return res.status(400).json({error:{message:"La disponibilité doit être true ou false."}});
-=======
         throw new HttpError(400, "Le nom est obligatoire.");
     }
 
@@ -116,7 +81,6 @@ export async function modiferItem(req, res) {
 
     if (typeof available !== "boolean") {
         throw new HttpError(400, "La disponibilité doit être true ou false.");
->>>>>>> origin/master
     }
 
     const itemModifie = await menuModele.modifier(id, name.trim(), category, priceCents, available)
@@ -128,11 +92,7 @@ export async function supprimerItem(req, res) {
     const item = await menuModele.trouverParId(id);
 
     if (!item) {
-<<<<<<< HEAD
-        return res.status(404).json({error:{message:"Item du menu introuvable."}});
-=======
         throw new HttpError(404, "Item du menu introuvable.");
->>>>>>> origin/master
     }
 
     await menuModele.supprimer(id);
