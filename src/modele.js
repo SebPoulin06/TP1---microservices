@@ -22,17 +22,17 @@ export const staff = {
 export const table = {
     async lister(status) {
         if(status) {
-            const { rows } = await pool.query("SELECT * FROM 'tables' WHERE status = $1 ORDER BY id", [status]);
+            const { rows } = await pool.query("SELECT * FROM tables WHERE status = $1 ORDER BY id", [status]);
 
             return rows;
         }
         
-        const { rows } = await pool.query("SELECT * FROM 'tables' ORDER BY id");
+        const { rows } = await pool.query("SELECT * FROM tables ORDER BY id");
         return rows;
     },
 
     async trouverParId(id) {
-        const { rows } = await pool.query("SELECT * FROM 'tables' WHERE id = $1", [id]);
+        const { rows } = await pool.query("SELECT * FROM tables WHERE id = $1", [id]);
 
         return rows[0] ?? null;
     },
@@ -110,5 +110,21 @@ export const orders = {
         return rows;
     },
 
-    
+    async trouverParId(id){
+        const { rows } = await pool.query(`SELECT * FROM "order" WHERE id = $1`, [id]);
+        return rows[0] ?? null;
+    },
+
+    async creer(tableId, serverId, items) {
+        const { rows } = await pool.query(`INSERT INTO "order" ("tableId", "serverId", items, "createdAt") VALUES ($1, $2, $3::json, NOW()) RETURNING *`, [tableId, serverId, JSON.stringify(items)]);
+        return rows[0];
+    },
+
+    async modifierItems(id, items) {
+        const { rows } = await pool.query(`UPDATE "order" SET items = $1::json WHERE id = $2 RETURNING *`, [JSON.stringify(items), id]);
+        return rows[0] ?? null;
+    },
+
+
+
 }

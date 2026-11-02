@@ -3,6 +3,7 @@ import staffRoutes from "./routes/staffRoutes.js";
 import tableRoutes from "./routes/tableRoutes.js";
 import menuRoutes from "./routes/menuRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import { gestionErreurs } from "./middlewares/gestionErreurs.js";
 
 
 export const app = express();
@@ -23,3 +24,7 @@ app.use("/menu", menuRoutes);
 
 //routes order
 app.use("/order", orderRoutes);
+
+
+//gestien d'erreurs
+app.use(gestionErreurs);
